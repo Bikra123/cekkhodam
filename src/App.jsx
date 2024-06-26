@@ -16,7 +16,7 @@ import Rexona from './assets/rexona.jpeg'
 function App() {
   const images = [DimasGayung,FrisianFlag,PanteneHijab,CodinganError,Bonek,Alucard,Kopi,Tissue,Baygon,Rexona]
 
-  const [khodam,setKhodam] = useState([
+  const khodamList = [
     {
       id: 1,
       nama: "Dimas Gayung"
@@ -57,28 +57,31 @@ function App() {
       id: 10,
       nama: "Rexona Ice Dingin"
     },
-  ])
-  
-  const [selectedKhodam, setSelectedKhodam] = useState(null); 
+  ]
+
+  const [khodam,setKhodam] = useState(null)
   const [showPopUp, setShowPopUp] = useState(false);
 
   const toggleCheck = () => {
     if (!showPopUp) {
       const randomIndex = Math.floor(Math.random() * 9);
-      const selectedItem = khodam[randomIndex];
-      setSelectedKhodam(selectedItem);
+      const selectedItem = khodamList[randomIndex];
+      setKhodam(selectedItem)
     }
-    setShowPopUp(!showPopUp);
+    setShowPopUp(!showPopUp)
   };
+  
+  const name = document.getElementById('nama')
 
   return (
     <>
-      <Form onCheck={toggleCheck} />
+      <Form onCheck={toggleCheck}/>
       {showPopUp && (
         <PopUp
-          khodam={selectedKhodam?.nama} 
+          nama={name.value}
+          khodam={khodam?.nama} 
           closePopUp={toggleCheck}
-          imageSource={images[selectedKhodam?.id - 1]} 
+          imageSource={images[khodam?.id - 1]} 
         />
       )}
     </>
